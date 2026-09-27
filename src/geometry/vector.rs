@@ -75,8 +75,8 @@ impl Vector {
     /// Panics if `v = 0`.
     pub fn primitive(self) -> Self {
         assert!(self != Self::ZERO, "zero vector has no primitive vector");
-        let g = gcd(self.x.unsigned_abs(), self.y.unsigned_abs()) as i64;
-        Self::new(self.x / g, self.y / g)
+        let g = gcd(self.x.unsigned_abs(), self.y.unsigned_abs()) as i128;
+        Self::new((self.x as i128 / g) as i64, (self.y as i128 / g) as i64)
     }
 
     /// The comparison of `v` and `w` by the principal argument in `(-π, π]`. It is a total
@@ -161,6 +161,7 @@ impl std::fmt::Display for Vector {
 
 impl std::ops::Neg for Vector {
     type Output = Self;
+    #[inline]
     fn neg(mut self) -> Self {
         self.x = -self.x;
         self.y = -self.y;
@@ -169,6 +170,7 @@ impl std::ops::Neg for Vector {
 }
 impl std::ops::Neg for &Vector {
     type Output = Vector;
+    #[inline]
     fn neg(self) -> Vector {
         -*self
     }

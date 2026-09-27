@@ -4,8 +4,8 @@ use crate::geometry::vector::Vector;
 ///
 /// # Definition
 /// For points `p`, `q` and a [`Vector`] `v`, `p - q` is the vector from `q` to `p`, and `p + v` and
-/// `p - v` are the points translated by `v` and `-v`. Points are ordered lexicographically, by
-/// `p_x` and then by `p_y`. It is displayed as `p_x p_y`.
+/// `p - v` are the points translated by `v` and `-v`. `p - v` arethe points translated by `v` and
+/// `-v`. It is displayed as `p_x p_y`.
 ///
 /// # Contract
 /// Every result of `p - q`, `p + v` and `p - v` has coordinates that fit in `i64`.
@@ -120,6 +120,7 @@ impl std::ops::Sub<Self> for &Point {
 
 impl std::ops::Add<Vector> for Point {
     type Output = Self;
+    #[inline]
     fn add(mut self, rhs: Vector) -> Self {
         self.x += rhs.x;
         self.y += rhs.y;
@@ -128,6 +129,7 @@ impl std::ops::Add<Vector> for Point {
 }
 impl std::ops::Sub<Vector> for Point {
     type Output = Self;
+    #[inline]
     fn sub(mut self, rhs: Vector) -> Self {
         self.x -= rhs.x;
         self.y -= rhs.y;
