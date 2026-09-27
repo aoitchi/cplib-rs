@@ -1,3 +1,4 @@
+pub mod assert;
 pub mod canonical;
 pub mod closures;
 pub mod min_max;
