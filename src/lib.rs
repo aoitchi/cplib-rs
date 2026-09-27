@@ -8,6 +8,7 @@ pub mod convex;
 pub mod cyclic;
 pub mod divide_and_conquer;
 pub mod fps;
+pub mod geometry;
 pub mod graph;
 pub mod grid;
 pub mod linear;
