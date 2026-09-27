@@ -1,7 +1,11 @@
+use std::cmp::Ordering;
+
+use crate::arithmetic::gcd::gcd;
+
 /// A vector `v = (v_x, v_y)` of `Z^2`.
 ///
 /// # Definition
-/// The vector with components `(x, y)`, `+`, `-`, unary `-` and `*` by an `i64` are the operations
+/// The vector with components `(x, y)`. `+`, `-`, unary `-` and `*` by an `i64` are the operations
 /// of the `Z`-module `Z^2`. It is displayed as `v_x v_y`.
 ///
 /// # Contract
@@ -59,6 +63,57 @@ impl Vector {
     /// - Space: O(1)
     pub fn squared_length(self) -> i128 {
         self.dot(self)
+    }
+
+    /// The primitive vector `v / gcd(v_x, v_y)` in the direction of `v`.
+    ///
+    /// # Complexity
+    /// - Time: O(log max(|v_x|, |v_y|))
+    /// - Space: O(1)
+    ///
+    /// # Panics
+    /// Panics if `v = 0`.
+    pub fn primitive(self) -> Self {
+        assert!(self != Self::ZERO, "zero vector has no primitive vector");
+        let g = gcd(self.x.unsigned_abs(), self.y.unsigned_abs()) as i64;
+        Self::new(self.x / g, self.y / g)
+    }
+
+    /// The comparison of `v` and `w` by the principal argument in `(-π, π]`. It is a total
+    /// preorder, and is `Equal` exactly when `v` and `w` have the same direction, that is,
+    /// `det(v, w) = 0` and `<v, w> > 0`.
+    ///
+    /// # Complexity
+    /// - Time: O(1)
+    /// - Space: O(1)
+    ///
+    /// # Panics
+    /// Panics if `v = 0` or `w = 0`.
+    pub fn cmp_arg(self, w: Self) -> Ordering {
+        assert!(
+            self != Self::ZERO && w != Self::ZERO,
+            "zero vector has no argument"
+        );
+        let upper = |v: Self| v.y > 0 || (v.y == 0 && v.x < 0);
+        upper(self).cmp(&upper(w)).then_with(|| 0.cmp(&self.det(w)))
+    }
+
+    /// Whether the direction of `v` lies on the arc `[v1, v2)` from the direction of `v1`
+    /// counterclockwise to that of `v2`, which is empty if `v1` and `v2` have the same direction.
+    ///
+    /// # Complexity
+    /// - Time: O(1)
+    /// - Space: O(1)
+    ///
+    /// # Panics
+    /// Panics if `v`, `v1` or `v2` is zero.
+    pub fn is_in_arc(self, v1: Self, v2: Self) -> bool {
+        assert!(self != Self::ZERO, "zero vector has no direction");
+        match v1.cmp_arg(v2) {
+            Ordering::Less => v1.cmp_arg(self).is_le() && self.cmp_arg(v2).is_lt(),
+            Ordering::Equal => false,
+            Ordering::Greater => v1.cmp_arg(self).is_le() || self.cmp_arg(v2).is_lt(),
+        }
     }
 
     /// The rotation `(-v_y, v_x)` of `v` by a quarter turn counterclockwise.

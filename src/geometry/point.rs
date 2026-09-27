@@ -1,6 +1,6 @@
 use crate::geometry::vector::Vector;
 
-/// A point `p = (p_x, p_y) of `Z^2`.
+/// A point `p = (p_x, p_y)` of `Z^2`.
 ///
 /// # Definition
 /// For points `p`, `q` and a [`Vector`] `v`, `p - q` is the vector from `q` to `p`, and `p + v` and
