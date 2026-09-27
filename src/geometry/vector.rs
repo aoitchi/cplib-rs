@@ -1,7 +1,7 @@
 /// A vector `v = (v_x, v_y)` of `Z^2`.
 ///
 /// # Definition
-/// The vector with coponents `(x, y)`, `+`, `-`, unary `-` and `*` by an `i64` are the operations
+/// The vector with components `(x, y)`, `+`, `-`, unary `-` and `*` by an `i64` are the operations
 /// of the `Z`-module `Z^2`. It is displayed as `v_x v_y`.
 ///
 /// # Contract
@@ -49,7 +49,7 @@ impl Vector {
         self.x as i128 * w.y as i128 - self.y as i128 * w.x as i128
     }
 
-    /// The square length `|v|^2 = v_x^2 + v_y^2`.
+    /// The squared length `|v|^2 = v_x^2 + v_y^2`.
     ///
     /// # Contract
     /// `v != (i64::MIN, i64::MIN)`.
@@ -235,11 +235,12 @@ impl std::ops::MulAssign<i64> for Vector {
     #[inline]
     fn mul_assign(&mut self, rhs: i64) {
         self.x *= rhs;
+        self.y *= rhs;
     }
 }
 impl std::ops::MulAssign<&i64> for Vector {
     #[inline]
     fn mul_assign(&mut self, rhs: &i64) {
-        self.x *= rhs;
+        std::ops::MulAssign::mul_assign(self, *rhs);
     }
 }

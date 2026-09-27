@@ -12,7 +12,7 @@ use crate::geometry::vector::Vector;
 ///
 /// # Complexity
 /// - Space: O(1)
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Point {
     pub x: i64,
     pub y: i64,
@@ -32,6 +32,7 @@ impl Point {
     }
 }
 
+/// The orientation of three points.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum Orientation {
     /// Turning right.
@@ -67,7 +68,7 @@ pub fn orientation(p: Point, q: Point, r: Point) -> Orientation {
 /// The squared distance `|q - p|^2` between `p` and `q`.
 ///
 /// # Contract
-/// `q - p` has coordinates that fit in `i64`, and `q - p != (i64::MIN, u64::MIN)`.
+/// `q - p` has coordinates that fit in `i64`, and `q - p != (i64::MIN, i64::MIN)`.
 ///
 /// # Complexity
 /// - Time: O(1)
@@ -79,6 +80,12 @@ pub fn squared_distance(p: Point, q: Point) -> i128 {
 impl From<(i64, i64)> for Point {
     fn from(value: (i64, i64)) -> Self {
         Self::new(value.0, value.1)
+    }
+}
+
+impl std::fmt::Display for Point {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} {}", self.x, self.y)
     }
 }
 
