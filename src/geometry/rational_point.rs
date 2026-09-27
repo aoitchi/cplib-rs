@@ -58,7 +58,7 @@ impl RationalPoint {
         }
     }
 
-    /// The homogeneous coordinates `(x, y, w)`
+    /// The homogeneous coordinates `(x, y, w)`.
     ///
     /// # Definition
     /// The unique ones with `gcd(x, y, w) = 1` and `w > 0`.

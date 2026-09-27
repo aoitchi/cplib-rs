@@ -6,9 +6,6 @@ use crate::geometry::vector::Vector;
 /// For points `p`, `q` and a [`Vector`] `v`, `p - q` is the vector from `q` to `p`, and `p + v` and
 /// `p - v` are the points translated by `v` and `-v`. It is displayed as `p_x p_y`.
 ///
-/// # Contract
-/// Every result of `p - q`, `p + v` and `p - v` has coordinates that fit in `i64`.
-///
 /// # Complexity
 /// - Space: O(1)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -47,8 +44,8 @@ pub enum Orientation {
 /// # Definition
 /// - [`Orientation::Counterclockwise`] if `p`, `q`, `r` make a left turn, that is, `r` lies to the
 ///   left of the line from `p` to `q`.
-/// - [`Orientation::Collinear`] if they make a right turn.
-/// - [`Orientation::Clockwise`] if they lie on a line.
+/// - [`Orientation::Clockwise`] if they make a right turn.
+/// - [`Orientation::Collinear`] if they lie on a line.
 ///
 /// # Complexity
 /// - Time: O(1)

@@ -137,7 +137,7 @@ impl Line {
     /// The intersection of `l` and `m`.
     ///
     /// # Complexity
-    /// - Time: O(log max(|x|, |y|, |w|))
+    /// - Time: O(log max(|a_l|, |b_l|, |c_l|, |a_m|, |b_m|, |c_m|))
     /// - Space: O(1)
     pub fn intersection(self, m: Self) -> Intersection {
         let w = self.a * m.b - m.a * self.b;
@@ -155,7 +155,7 @@ impl Line {
     /// The foot of the perpendicular from `p` to `l`.
     ///
     /// # Complexity
-    /// - Time: O(log max(|x|, |y|, |w|))
+    /// - Time: O(log max(|a_l|, |b_l|, |c_l|, |p_x|, |p_y|))
     /// - Space: O(1)
     pub fn projection(self, p: Point) -> RationalPoint {
         let (px, py) = (p.x as i128, p.y as i128);
@@ -167,11 +167,11 @@ impl Line {
     /// The reflection of `p` in `l`.
     ///
     /// # Definition
-    /// The point `p'` such that `l` is the perpendicular bisector of `p` and `p'`, or `p'` itself
-    /// if `l` contains `p`.
+    /// The point `p'` such that `l` is the perpendicular bisector of `p` and `p'`, or `p` itself if
+    /// `l` contains `p`.
     ///
     /// # Complexity
-    /// - Time: O(log max(|x|, |y|, |w|))
+    /// - Time: O(log max(|a_l|, |b_l|, |c_l|, |p_x|, |p_y|))
     /// - Space: O(1)
     pub fn reflection(self, p: Point) -> RationalPoint {
         let (px, py) = (p.x as i128, p.y as i128);
@@ -181,7 +181,6 @@ impl Line {
     }
 
     /// The squared distance `n / d` from `p` to `l`, as the pair `(n, d)` with `d = a_l^2 + b_l^2`.
-    ///
     ///
     /// # Complexity
     /// - Time: O(1)

@@ -8,9 +8,6 @@ use crate::arithmetic::gcd::gcd;
 /// The vector with components `(x, y)`. `+`, `-`, unary `-` and `*` by an `i64` are the operations
 /// of the `Z`-module `Z^2`. It is displayed as `v_x v_y`.
 ///
-/// # Contract
-/// Every result of `+`, `-`, unary `-` and `*` has components that fit in `i64`.
-///
 /// # Complexity
 /// - Space: O(1)
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
@@ -78,8 +75,8 @@ impl Vector {
     /// Panics if `v = 0`.
     pub fn primitive(self) -> Self {
         assert!(self != Self::ZERO, "zero vector has no primitive vector");
-        let g = gcd(self.x.unsigned_abs(), self.y.unsigned_abs()) as i128;
-        Self::new((self.x as i128 / g) as i64, (self.y as i128 / g) as i64)
+        let g = gcd(self.x.abs(), self.y.abs());
+        Self::new(self.x / g, self.y / g)
     }
 
     /// The comparison of `v` and `w` by argument.
@@ -104,7 +101,7 @@ impl Vector {
         upper(self).cmp(&upper(w)).then_with(|| 0.cmp(&self.det(w)))
     }
 
-    /// Whether the direction of `v` lies on the arc `[v1, v2)`
+    /// Whether the direction of `v` lies on the arc `[v1, v2)`.
     ///
     /// # Definition
     /// The arc is `[v1, v2)`, from the direction of `v1` counterclockwise to that of `v2`, and is
@@ -149,7 +146,7 @@ impl Vector {
     /// - Time: O(1)
     /// - Space: O(1)
     pub fn is_orthogonal(self, w: Self) -> bool {
-        self.x as i128 * w.x as i128 == -(self.y as i128 * w.y as i128)
+        self.dot(w) == 0
     }
 }
 
