@@ -48,26 +48,26 @@ macro_rules! forward {
     };
 }
 
-/// A structure whose `op` is asserted to be commutative.
+/// A structure asserted to be commutative.
 ///
 /// # Definition
-/// `self.0` with the same `op`, and the same `id` and `inv` where `self.0` has them.
+/// `self.0` with the same operations.
 ///
 /// # Contract
-/// `op(a, b) = op(b, a)` for all `a`, `b`.
+/// `self.0` satisfies the contract of [`Commutative`].
 #[derive(Clone, Copy, Default)]
 pub struct AssertCommutative<M>(pub M);
 forward!(AssertCommutative);
 impl<M> Commutative for AssertCommutative<M> {}
 impl<M: Idempotent> Idempotent for AssertCommutative<M> {}
 
-/// A structure whose `op` is asserted to be idempotent.
+/// A structure asserted to be idempotent.
 ///
 /// # Definition
-/// `self.0` with the same `op`, and the same `id` and `inv` where `self.0` has them.
+/// `self.0` with the same operations.
 ///
 /// # Contract
-/// `op(a, a) = a` for all `a`.
+/// `self.0` satisifies the contract of [`Idempotent`].
 #[derive(Clone, Copy, Default)]
 pub struct AssertIdempotent<M>(pub M);
 forward!(AssertIdempotent);
