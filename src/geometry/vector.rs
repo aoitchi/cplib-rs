@@ -28,7 +28,7 @@ impl Vector {
         Self { x, y }
     }
 
-    /// The inner product `v *. y = v_x * w_x + v_y * w_y`.
+    /// The inner product `<v, w> = v_x * w_x + v_y * w_y`.
     ///
     /// # Contract
     /// `v` and `w` are not both `(i64::MIN, i64::MIN)`.
@@ -82,7 +82,7 @@ impl Vector {
         self.det(w) == 0
     }
 
-    /// Whether `v` and `w` are orthogonal, that is `v *. w = 0`.
+    /// Whether `v` and `w` are orthogonal, that is `<v, w> = 0`.
     ///
     /// # Complexity
     /// - Time: O(1)
