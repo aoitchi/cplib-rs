@@ -32,10 +32,10 @@ impl Vector {
         Self { x, y }
     }
 
-    /// The inner product `<v, w> = v_x * w_x + v_y * w_y`.
+    /// The inner product of `v` and `w`.
     ///
-    /// # Contract
-    /// `v` and `w` are not both `(i64::MIN, i64::MIN)`.
+    /// # Definition
+    /// `<v, w> = v_x * w_x + v_y * w_y`.
     ///
     /// # Complexity
     /// - Time: O(1)
@@ -44,7 +44,10 @@ impl Vector {
         self.x as i128 * w.x as i128 + self.y as i128 * w.y as i128
     }
 
-    /// The determinant `det(v, w) = v_x w_y - v_y w_x` of the matrix with columns `v` and `w`.
+    /// The determinant of `v` and `w`.
+    ///
+    /// # Definition
+    /// `det(v, w) = v_x w_y - v_y w_x`, the determinant of the matrix with columns `v` and `w`.
     ///
     /// # Complexity
     /// - Time: O(1)
@@ -55,9 +58,6 @@ impl Vector {
 
     /// The squared length `|v|^2 = v_x^2 + v_y^2`.
     ///
-    /// # Contract
-    /// `v != (i64::MIN, i64::MIN)`.
-    ///
     /// # Complexity
     /// - Time: O(1)
     /// - Space: O(1)
@@ -65,7 +65,10 @@ impl Vector {
         self.dot(self)
     }
 
-    /// The primitive vector `v / gcd(v_x, v_y)` in the direction of `v`.
+    /// The primitive vector in the direction of `v`.
+    ///
+    /// # Definition
+    /// `v / gcd(v_x, v_y)`, the vector in the direction of `v` with coprime components.
     ///
     /// # Complexity
     /// - Time: O(log max(|v_x|, |v_y|))
@@ -79,9 +82,12 @@ impl Vector {
         Self::new((self.x as i128 / g) as i64, (self.y as i128 / g) as i64)
     }
 
-    /// The comparison of `v` and `w` by the principal argument in `(-π, π]`. It is a total
-    /// preorder, and is `Equal` exactly when `v` and `w` have the same direction, that is,
-    /// `det(v, w) = 0` and `<v, w> > 0`.
+    /// The comparison of `v` and `w` by argument.
+    ///
+    /// # Definition
+    /// The comparison of their principal arguments, the angles in `(-π, π]` from the positive
+    /// `x`-axis counterclockwise to them. It is a total preorder, and is `Equal` exactly when `v`
+    /// and `w` have the same direction.
     ///
     /// # Complexity
     /// - Time: O(1)
@@ -98,8 +104,11 @@ impl Vector {
         upper(self).cmp(&upper(w)).then_with(|| 0.cmp(&self.det(w)))
     }
 
-    /// Whether the direction of `v` lies on the arc `[v1, v2)` from the direction of `v1`
-    /// counterclockwise to that of `v2`, which is empty if `v1` and `v2` have the same direction.
+    /// Whether the direction of `v` lies on the arc `[v1, v2)`
+    ///
+    /// # Definition
+    /// The arc is `[v1, v2)`, from the direction of `v1` counterclockwise to that of `v2`, and is
+    /// empty if `v1` and `v2` have the same direction.
     ///
     /// # Complexity
     /// - Time: O(1)
@@ -118,9 +127,6 @@ impl Vector {
 
     /// The rotation `(-v_y, v_x)` of `v` by a quarter turn counterclockwise.
     ///
-    /// # Contract
-    /// `v_y != i64::MIN`.
-    ///
     /// # Complexity
     /// - Time: O(1)
     /// - Space: O(1)
@@ -128,7 +134,7 @@ impl Vector {
         Self::new(-self.y, self.x)
     }
 
-    /// Whether `v` and `w` are parallel, that is `det(v, w) = 0`.
+    /// Whether `v` and `w` are parallel.
     ///
     /// # Complexity
     /// - Time: O(1)
@@ -137,7 +143,7 @@ impl Vector {
         self.det(w) == 0
     }
 
-    /// Whether `v` and `w` are orthogonal, that is `<v, w> = 0`.
+    /// Whether `v` and `w` are orthogonal.
     ///
     /// # Complexity
     /// - Time: O(1)
