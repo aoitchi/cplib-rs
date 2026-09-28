@@ -171,7 +171,7 @@ impl Line {
         (self.a, self.b, self.c)
     }
 
-    /// The `y`-coordinate `n / d` of the point of `l` with `x-coordinate `x`, as the pair `(n, d)`
+    /// The `y`-coordinate `n / d` of the point of `l` with `x`-coordinate `x`, as the pair `(n, d)`
     /// with `d = |b_l|`.
     ///
     /// # Complexity
@@ -239,7 +239,7 @@ impl Line {
         self.a * x + self.b * y + self.c * w == 0
     }
 
-    /// Whether `r` ans `s` lie on the same side of `l`, neither of them on `l`.
+    /// Whether `r` and `s` lie on the same side of `l`, neither of them on `l`.
     ///
     /// # Complexity
     /// - Time: O(1)
@@ -315,7 +315,7 @@ impl Line {
         RationalPoint::new(px * w - 2 * self.a * v, py * w - 2 * self.b * v, w)
     }
 
-    /// The reflaection of `m` in `l`.
+    /// The reflection of `m` in `l`.
     ///
     /// # Definition
     /// The line of the reflections in `l` of the points of `m`.

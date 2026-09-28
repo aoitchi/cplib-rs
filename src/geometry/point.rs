@@ -103,7 +103,7 @@ pub fn angle(p: Point, q: Point, r: Point) -> Angle {
 /// - Space: O(1)
 pub fn midpoint(p: Point, q: Point) -> RationalPoint {
     let x = p.x as i128 + q.x as i128;
-    let y = q.x as i128 + q.y as i128;
+    let y = p.y as i128 + q.y as i128;
     if x % 2 == 0 && y % 2 == 0 {
         RationalPoint {
             x: x / 2,
@@ -142,7 +142,7 @@ pub fn centroid(ps: &[Point]) -> RationalPoint {
 /// The polygon does not intersect itself.
 ///
 /// # Complexity
-/// - Time: O(n + log(nC)), where `c` is the largest absolute value of a coordinate
+/// - Time: O(n + log(nC)), where `C` is the largest absolute value of a coordinate
 /// - Space: O(1)
 ///
 /// # Panics
@@ -193,16 +193,17 @@ pub fn circumcircle_side(p: Point, q: Point, r: Point, s: Point) -> CircleSide {
     }
 }
 
-/// The squared radius `n / d` of the circle through `p`, `q`, `r`, as tha pair `(n, d)` with
+/// The squared radius `n / d` of the circle through `p`, `q`, `r`, as the pair `(n, d)` with
 /// `n = |q - p|^2 |r - q|^2 |q - r|^2`.
 ///
 /// # Complexity
 /// - Time: O(1)
 /// - Space: O(1)
 ///
-/// # Panics if `p`, `q`, `r` lie on a line.
+/// # Panics
+/// Panics if `p`, `q`, `r` lie on a line.
 pub fn squared_circumradius(p: Point, q: Point, r: Point) -> (i128, i128) {
-    let det = (q - p).det(r - q);
+    let det = (q - p).det(r - p);
     assert!(det != 0, "p, q, r must not lie on a line");
     let n = squared_distance(p, q) * squared_distance(q, r) * squared_distance(r, p);
     (n, 4 * det * det)
@@ -214,7 +215,7 @@ pub fn squared_circumradius(p: Point, q: Point, r: Point) -> (i128, i128) {
 /// The point at equal distance from `p`, `q` and `r`.
 ///
 /// # Complexity
-/// - Time: O(log max(|p_x|, |p_y|, |q_x|, |q_y|, |r_x|, |r_y|)
+/// - Time: O(log max(|p_x|, |p_y|, |q_x|, |q_y|, |r_x|, |r_y|))
 /// - Space: O(1)
 ///
 /// # Panics
