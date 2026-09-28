@@ -194,7 +194,7 @@ pub fn circumcircle_side(p: Point, q: Point, r: Point, s: Point) -> CircleSide {
 }
 
 /// The squared radius `n / d` of the circle through `p`, `q`, `r`, as the pair `(n, d)` with
-/// `n = |q - p|^2 |r - q|^2 |q - r|^2`.
+/// `n = |q - p|^2 |p - r|^2 |r - q|^2`.
 ///
 /// # Complexity
 /// - Time: O(1)
