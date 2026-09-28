@@ -7,5 +7,4 @@
 
 pub mod line;
 pub mod point;
-pub mod rational_point;
 pub mod vector;
