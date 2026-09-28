@@ -37,11 +37,12 @@ impl<T> Rerooting<T> {
     /// `lift` and `wrap`.
     ///
     /// # Definition
-    /// The arguments of `lift` and `wrap` are those in the definition of `fold`. In `lift(x, c, v, i)`,
-    /// `c` and `v` are joined by the `i`-th edge, and `x = fold(c, v)`, the value of the subtree of
-    /// `c` when the tree is rooted at `v`. In `wrap(y, v)`, `y` is the product under `op` of
-    /// `lift(fold(c, v), c, v, i)` over all the neighbors `c` of `v`, or over all but one of them,
-    /// where `i` is the index of the edge joining `c` and `v`.
+    /// The arguments of `lift` and `wrap` are those in the definition of `fold`. In
+    /// `lift(x, c, v, i)`, `c` and `v` are joined by the `i`-th edge, and `x = fold(c, v)`,
+    /// the value of the subtree of `c` when the tree is rooted at `v`. In `wrap(y, v)`,
+    /// `y` is the product under `op` of `lift(fold(c, v), c, v, i)` over all the neighbors
+    /// `c` of `v`, or over all but one of them, where `i` is the index of the edge joining
+    /// `c` and `v`.
     ///
     /// # Contract
     /// `lift` and `wrap` depend only on their arguments.

@@ -67,7 +67,7 @@ impl<M: Idempotent> Idempotent for AssertCommutative<M> {}
 /// `self.0` with the same operations.
 ///
 /// # Contract
-/// `self.0` satisifies the contract of [`Idempotent`].
+/// `self.0` satisfies the contract of [`Idempotent`].
 #[derive(Clone, Copy, Default)]
 pub struct AssertIdempotent<M>(pub M);
 forward!(AssertIdempotent);
