@@ -12,6 +12,35 @@ pub struct Compression<T> {
     value: Box<[T]>,
 }
 
+impl<T> Compression<T> {
+    /// The elements of `X` in increasing order.
+    ///
+    /// # Complexity
+    /// - Time: O(1)
+    /// - Space: O(1)
+    pub fn as_slice(&self) -> &[T] {
+        &self.value
+    }
+
+    /// The size `k`.
+    ///
+    /// # Complexity
+    /// - Time: O(1)
+    /// - Space: O(1)
+    pub fn len(&self) -> usize {
+        self.value.len()
+    }
+
+    /// Whether `k = 0`.
+    ///
+    /// # Complexity
+    /// - Time: O(1)
+    /// - Space: O(1)
+    pub fn is_empty(&self) -> bool {
+        self.value.is_empty()
+    }
+}
+
 impl<T: Ord> Compression<T> {
     /// The compression of the set `X` of the elements of `v`.
     ///
@@ -40,24 +69,6 @@ impl<T: Ord> Compression<T> {
     /// - Space: O(1)
     pub fn lower_bound(&self, x: &T) -> usize {
         self.value.partition_point(|y| y < x)
-    }
-
-    /// The size `k`.
-    ///
-    /// # Complexity
-    /// - Time: O(1)
-    /// - Space: O(1)
-    pub fn len(&self) -> usize {
-        self.value.len()
-    }
-
-    /// Whether `k = 0`.
-    ///
-    /// # Complexity
-    /// - Time: O(1)
-    /// - Space: O(1)
-    pub fn is_empty(&self) -> bool {
-        self.value.is_empty()
     }
 }
 
