@@ -60,10 +60,10 @@ pub fn rotation_inversions<T: Ord>(a: &[T]) -> Vec<usize> {
     c
 }
 
-/// The number of inversions of the ranges of `a`.
+/// The numbers of inversions of the ranges of `a`.
 ///
 /// # Definition
-/// For a sequence `a` of length `n`, t[l][r]` is the number of inversions, as defined in
+/// For a sequence `a` of length `n`, `t[l][r]` is the number of inversions, as defined in
 /// [`count_inversions`], of `a[l..r]` for `0 <= l <= r <= n`, and t[l][r] = 0` for `l > r`.
 ///
 /// # Complexity
@@ -89,7 +89,7 @@ pub fn range_inversions<T: Ord>(a: &[T]) -> Vec<Vec<usize>> {
 /// not a rearrangement of `a`.
 ///
 /// # Complexity
-/// - Time: O(n log n), where `n = min(a.len(), b.len())`.
+/// - Time: O(n log n), where `n = min(a.len(), b.len())`
 /// - Space: O(n)
 pub fn adjacent_swap_distance<T: Ord>(a: &[T], b: &[T]) -> Option<usize> {
     if a.len() != b.len() {
