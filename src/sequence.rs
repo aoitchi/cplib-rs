@@ -1,4 +1,5 @@
 pub mod border_array;
+pub mod inversion;
 pub mod num_subsequences;
 pub mod occurrence;
 pub mod palindrome_radii;
