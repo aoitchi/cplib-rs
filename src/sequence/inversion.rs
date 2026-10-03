@@ -64,7 +64,7 @@ pub fn rotation_inversions<T: Ord>(a: &[T]) -> Vec<usize> {
 ///
 /// # Definition
 /// For a sequence `a` of length `n`, `t[l][r]` is the number of inversions, as defined in
-/// [`count_inversions`], of `a[l..r]` for `0 <= l <= r <= n`, and t[l][r] = 0` for `l > r`.
+/// [`count_inversions`], of `a[l..r]` for `0 <= l <= r <= n`, and `t[l][r] = 0` for `l > r`.
 ///
 /// # Complexity
 /// - Time: O(n^2)
