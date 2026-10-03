@@ -10,3 +10,4 @@ pub mod lcm;
 pub mod lpf;
 pub mod multiplicative;
 pub mod prime;
+pub mod quotient;
