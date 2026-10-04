@@ -170,7 +170,7 @@ impl IntSet {
     ///
     /// # Panics
     /// Panics if `x > u`.
-    pub fn floor(&self, x: usize) -> Option<usize> {
+    pub fn ceil(&self, x: usize) -> Option<usize> {
         assert!(x <= self.bound, "out of bounds: x={x}, u={}", self.bound);
         if x == self.bound {
             return None;
@@ -201,7 +201,7 @@ impl IntSet {
     ///
     /// # Panics
     /// Panics if `x >= u`.
-    pub fn ceil(&self, x: usize) -> Option<usize> {
+    pub fn floor(&self, x: usize) -> Option<usize> {
         assert!(x < self.bound, "out of bounds: x={x}, u={}", self.bound);
         let mut p = x;
         for h in 0..self.level.len() - 1 {
@@ -264,11 +264,11 @@ impl IntSet {
                 if start >= r {
                     return None;
                 }
-                let x = self.floor(start)?;
+                let x = self.ceil(start)?;
                 if x >= r {
                     return None;
                 }
-                base &= !63;
+                base = x & !63;
                 cur = self.word[x >> 6] & !((1 << (x & 63)) - 1);
                 start = base + 64;
             }
