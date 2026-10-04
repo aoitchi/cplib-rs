@@ -1,9 +1,9 @@
-/// The centroid of a tree, as in [`tree_centroid`].
+/// The centroid of a tree.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum Centroid {
     /// A single vertex.
     Vertex(usize),
-    /// Two adjacent vertices, in unspecified order.
+    /// Two adjacent vertices `u < v`.
     Edge(usize, usize),
 }
 
@@ -11,8 +11,8 @@ pub enum Centroid {
 ///
 /// # Definition
 /// The tree is on `[0, n)`, and its `i`-th edge joins `u` and `v` for `edges[i] = (u, v)`. A
-/// centroid is a vertex whose removal leaves only components `C` with `2|C| <= n`. The centroids
-/// are a single vertex or two adjacent vertices.
+/// centroid is a vertex whose removal leaves only components `C` with `2|C| <= n`, and the centroid
+/// is the set of centroids, which is a single vertex or two adjacent vertices.
 ///
 /// # Complexity
 /// - Time: O(n)
@@ -23,7 +23,7 @@ pub enum Centroid {
 /// Panics if some `(u, v)` in `edges` satisfies `u >= n` or `v >= n`, or `edges` is not the edge
 /// set of a tree on `[0, n)`.
 pub fn tree_centroid(n: usize, edges: &[(usize, usize)]) -> Centroid {
-    assert!(n > 0, "not a tree: n=0");
+    assert!(n > 0, "n must be positive");
     assert!(n < 1 << 32, "n must be less than 2^32: n={n}");
     assert_eq!(
         edges.len() + 1,
@@ -66,56 +66,9 @@ pub fn tree_centroid(n: usize, edges: &[(usize, usize)]) -> Centroid {
 
     let c = centroid.unwrap_or(root);
     if (size[c] as usize) << 1 == n {
-        Centroid::Edge(c, xor[c] as usize)
+        let p = xor[c] as usize;
+        Centroid::Edge(c.min(p), c.max(p))
     } else {
         Centroid::Vertex(c)
-    }
-}
-
-/// The centroid decomposition of a tree.
-///
-/// # Definition
-/// The tree is on `[0, n)`, and its `i`-th edge joins `u` and `v` for `edges[i] = (u, v)`, both
-/// given to [`CentroidDecomposition::from_edges`]. `d(u, v)` is the number of edges on the path
-/// joining `u` and `v`. Starting from the whole tree, every component that arises is split by
-/// removing a centroid `c` of it, as in [`tree_centroid`]; which centroid is removed is unspecified
-/// when there are two. Every vertex is removed exactly once, and `C_c` is the component from which
-/// `c` is removed. The centroid tree is the tree on `[0, n)` in which the parent of `c` is the
-/// vertex whose removal created `C_c`, rooted at the first vertex removed.
-///
-/// # Invariants
-/// - `vertex[start[c]..end[c]]` is `C_c`: `c` first, then the vertices of each component of `C_c`
-///   minus `c` one component after another, each in breadth-first order from `c`.
-/// - For `k` in `[start[c], end[c])`, `disk[k]` is `d(c, vertex[k])`, and for `k > start[c]`,
-///   `vertex[start[c] + parent[k]]` is the neighbor of `vertex[k]` on the path to `c`, and
-///   `edge[k]` is the index of the edge joining them. `parent[start[c]]` and `edge[start[c]]` are
-///   unused.
-///
-/// # Complexity
-/// - Space: O(n log n)
-pub struct CentroidDecomposition {
-    _start: Box<[usize]>,
-    _end: Box<[usize]>,
-    _vertex: Box<[usize]>,
-    _parent: Box<[usize]>,
-    _edge: Box<[usize]>,
-    _dist: Box<[usize]>,
-    _ancestor_start: Box<[usize]>,
-    _ancestor: Box<[(usize, usize)]>,
-}
-
-impl CentroidDecomposition {
-    /// The centroid decomposition of the tree given by `edges`.
-    ///
-    /// # Complexity
-    /// - Time: O(n log n)
-    /// - Space: O(n log n)
-    ///
-    /// # Panics
-    /// Panics if `n = 0`.
-    /// Panics if some `(u, v)` in `edges` satisfies `u >= n` or `v >= n`, or `edges` is not the
-    /// edge set of a tree on `[0, n)`.
-    pub fn from_edges(_n: usize, _edges: &[(usize, usize)]) -> Self {
-        todo!();
     }
 }
