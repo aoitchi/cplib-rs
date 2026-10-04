@@ -227,7 +227,7 @@ impl IntSet {
     /// - Time: O(log_64 u)
     /// - Space: O(1)
     pub fn min(&self) -> Option<usize> {
-        (self.bound > 0).then(|| self.floor(0)).flatten()
+        (self.bound > 0).then(|| self.ceil(0)).flatten()
     }
 
     /// The greatest element of `S`, or `None` if `S` is empty.
@@ -237,7 +237,7 @@ impl IntSet {
     /// - Space: O(1)
     pub fn max(&self) -> Option<usize> {
         (self.bound > 0)
-            .then(|| self.ceil(self.bound - 1))
+            .then(|| self.floor(self.bound - 1))
             .flatten()
     }
 
