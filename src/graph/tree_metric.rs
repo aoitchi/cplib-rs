@@ -228,10 +228,12 @@ pub enum Center {
 ///
 /// # Panics
 /// Panics if `n = 0`.
+/// Panics if `n >= 2^32`.
 /// Panics if some `(u, v)` in `edges` satisfies `u >= n` or `v >= n`, or `edges` is not the edge
 /// set of a tree on `[0, n)`.
 pub fn tree_center(n: usize, edges: &[(usize, usize)]) -> Center {
     assert!(n > 0, "n must be positive");
+    assert!(n < 1 << 32, "n must be less than 2^32: n={n}");
     assert_eq!(
         edges.len(),
         n - 1,
