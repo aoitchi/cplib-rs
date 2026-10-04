@@ -14,14 +14,14 @@ use crate::range::to_half_open;
 ///
 /// # Complexity
 /// - Space: O(u / 64)
-pub struct IntSet {
+pub struct WAryTree {
     word: Box<[u64]>,
     level: Box<[usize]>,
     len: usize,
     bound: usize,
 }
 
-impl IntSet {
+impl WAryTree {
     /// The empty subset of `[0, u)`.
     ///
     /// # Complexity

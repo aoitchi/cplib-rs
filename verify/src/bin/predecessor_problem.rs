@@ -1,6 +1,6 @@
 use std::io::{BufWriter, Read, Write, stdin, stdout};
 
-use cplib::collections::int_set::IntSet;
+use cplib::collections::w_ary_tree::WAryTree;
 
 fn main() {
     let mut input = Vec::new();
@@ -22,10 +22,10 @@ fn main() {
     let n = parse!(usize);
     let q = parse!(u32);
     let t: &[u8] = iter.next().unwrap();
-    let mut int_set = IntSet::new(n);
+    let mut set = WAryTree::new(n);
     for (i, &t) in t.iter().enumerate() {
         if t == b'1' {
-            int_set.insert(i);
+            set.insert(i);
         }
     }
     for _ in 0..q {
@@ -33,21 +33,21 @@ fn main() {
         let k = parse!(usize);
         match c {
             0 => {
-                int_set.insert(k);
+                set.insert(k);
             }
             1 => {
-                int_set.remove(k);
+                set.remove(k);
             }
             2 => {
-                let ans = int_set.contains(k);
+                let ans = set.contains(k);
                 writeln!(stdout, "{}", ans as u8).ok();
             }
             3 => {
-                let ans = int_set.ceil(k).unwrap_or(!0);
+                let ans = set.ceil(k).unwrap_or(!0);
                 writeln!(stdout, "{}", ans as isize).ok();
             }
             4 => {
-                let ans = int_set.floor(k).unwrap_or(!0);
+                let ans = set.floor(k).unwrap_or(!0);
                 writeln!(stdout, "{}", ans as isize).ok();
             }
             _ => unreachable!(),
