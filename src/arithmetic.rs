@@ -5,6 +5,7 @@
 //! length, and `x`, `y`, `d` denote elements of `[0, n)`.
 
 pub mod dirichlet;
+pub mod divisor;
 pub mod gcd;
 pub mod lcm;
 pub mod lpf;
