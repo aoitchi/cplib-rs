@@ -38,6 +38,7 @@ pub fn divisors(n: u64) -> Vec<u64> {
 /// # Invariants
 /// - `factors` is the prime factorization `n = Π p_i^e_i`, in increasing order of `p_i`.
 /// - `divisors` contains `Π p_i^a_i` at index `Σ a_i Π_{j<i} (e_j + 1)`, for `0 <= a_i <= e_i`.
+/// - A function on `D(n)` is stored with `f(divisors[i])` at index `i`.
 ///
 /// # Complexity
 /// - Space: O(d(n)), where d(n) is the number of divisors of `n`.
